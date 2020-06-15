@@ -1,21 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package Classes;
 
+
+package Classes;
 
 /**
  *
- * @author Dark
+ * @author Gustavo Vieira
  */
 public abstract class PessoaAbstrac {
     
-    public abstract long Id();
-    public abstract String nome();
-    public abstract String cpf();
-    public abstract String telefone();
-    public abstract date getDataNadc();
+    protected long id;
+    protected String nome;
+    protected String cpf;
+    protected String telefone;
+    protected date daraNasc;
+    
+    public abstract void addPedido(Pedido pedido);
+    public abstract void removerPedido(Pedido pedido);
     
 }

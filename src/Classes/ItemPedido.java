@@ -11,4 +11,8 @@ package Classes;
  */
 public class ItemPedido {
     
+    //Atributos da classe ItemPedido
+    protected long id;
+    protected double valorItem;
+    protected int quantidade;
 }
