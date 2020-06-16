@@ -9,30 +9,22 @@ package Classes;
  *
  * @author Dark
  */
-public class Cliente extends PessoaAbstrac {
+public class Cliente extends PessoaAbstrac { 
+    
+    
+    //Atribotos da Class Cliente
+    private double endereco;
+    
+    
+    //Classes abstratas erdadas de PessoaAbstrac
 
     @Override
-    public long Id() {
+    public void addPedido(Pedido pedido) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public String nome() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String cpf() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String telefone() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public date getDataNadc() {
+    public void removerPedido(Pedido pedido) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

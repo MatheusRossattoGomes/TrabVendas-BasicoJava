@@ -10,5 +10,19 @@ package Classes;
  * @author Dark
  */
 public class Pedido {
+    //Atributos da classe Pedido;
+    protected long id;
+    protected double valorPedido;
+    protected date dataPedido;
+    protected StatusPedido statusPedido;
     
+    
+    //Funções da class
+    public void addItemPedido (ItemPedido itemPedido) {
+        
+    }
+    
+    public void removerItemPedido (ItemPedido itemPedido) {
+        
+    }
 }

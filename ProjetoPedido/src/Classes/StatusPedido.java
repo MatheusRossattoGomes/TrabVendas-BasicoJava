@@ -7,9 +7,9 @@ package Classes;
 
 /**
  *
- * @author Dark
+ * @author Gustavo Vieira
  */
 public class StatusPedido {
-
-    
+    //nunca trabalhei com esses tipo de dado "ENUM"
+    //então acho mais interesante vc implementar para gente
 }

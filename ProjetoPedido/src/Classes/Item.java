@@ -11,4 +11,22 @@ package Classes;
  */
 public class Item {
     
+    //Atributos da classe Item
+    protected String nome;
+    protected int quantidadeEstoque;
+    protected double valorAtual;
+    
+    
+    //Funções
+    public boolean possuiEmEstoque () {
+        return false;
+    }
+    
+    public void addItemPedido (ItemPedido itemPedido) {
+        
+    }
+    
+    public void removerItemPedido (ItemPedido itemPedido) {
+        
+    }
 }
