@@ -1,31 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Classes;
 
-/**
- *
- * @author Dark
- */
-public class Cliente extends PessoaAbstrac { 
-    
-    
+import java.util.Date;
+
+public class Cliente extends PessoaAbstrac {
+
     //Atribotos da Class Cliente
-    private double endereco;
-    
-    
-    //Classes abstratas erdadas de PessoaAbstrac
+    private String endereco;
 
-    @Override
-    public void addPedido(Pedido pedido) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Cliente(String endereco, long id, String nome, String cpf, String telefone, Date daraNasc) {
+        super(id, nome, cpf, telefone, daraNasc);
+        this.endereco = endereco;
     }
 
-    @Override
-    public void removerPedido(Pedido pedido) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public String getEndereco() {
+        return endereco;
     }
-    
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
 }

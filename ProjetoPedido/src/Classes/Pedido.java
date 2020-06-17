@@ -1,28 +1,62 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Classes;
 
-/**
- *
- * @author Dark
- */
+import java.util.ArrayList;
+import java.util.Date;
+
 public class Pedido {
+
     //Atributos da classe Pedido;
-    protected long id;
-    protected double valorPedido;
-    protected date dataPedido;
-    protected StatusPedido statusPedido;
-    
-    
-    //Funções da class
-    public void addItemPedido (ItemPedido itemPedido) {
-        
+    private long id;
+    private double valorPedido;
+    private Date dataPedido;
+    private StatusPedido statusPedido;
+    private ArrayList<ItemPedido> itensPedidos;
+
+    public Pedido(long id, double valorPedido, Date dataPedido, StatusPedido statusPedido) {
+        this.id = id;
+        this.valorPedido = valorPedido;
+        this.dataPedido = dataPedido;
+        this.statusPedido = statusPedido;
     }
-    
-    public void removerItemPedido (ItemPedido itemPedido) {
-        
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getValorPedido() {
+        return valorPedido;
+    }
+
+    public void setValorPedido(double valorPedido) {
+        this.valorPedido = valorPedido;
+    }
+
+    public Date getDataPedido() {
+        return dataPedido;
+    }
+
+    public void setDataPedido(Date dataPedido) {
+        this.dataPedido = dataPedido;
+    }
+
+    public StatusPedido getStatusPedido() {
+        return statusPedido;
+    }
+
+    public void setStatusPedido(StatusPedido statusPedido) {
+        this.statusPedido = statusPedido;
+    }
+
+    //Funções da class
+    public void addItemPedido(ItemPedido itemPedido) {
+
+    }
+
+    public void removerItemPedido(ItemPedido itemPedido) {
+
     }
 }
