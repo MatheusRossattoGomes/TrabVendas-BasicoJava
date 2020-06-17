@@ -50,13 +50,12 @@ public class Pedido {
     public void setStatusPedido(StatusPedido statusPedido) {
         this.statusPedido = statusPedido;
     }
-
-    //Funções da class
+    
     public void addItemPedido(ItemPedido itemPedido) {
-
+        this.itensPedidos.add(itemPedido);
     }
 
     public void removerItemPedido(ItemPedido itemPedido) {
-
+        this.itensPedidos.remove(itemPedido);
     }
 }

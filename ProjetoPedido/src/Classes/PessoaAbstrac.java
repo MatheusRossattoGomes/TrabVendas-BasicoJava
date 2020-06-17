@@ -61,11 +61,11 @@ public abstract class PessoaAbstrac {
     }
 
     public void addPedido(Pedido pedido) {
-
+        this.pedidos.add(pedido);
     }
 
     public void removerPedido(Pedido pedido) {
-
+        this.pedidos.remove(pedido);
     }
 
 }

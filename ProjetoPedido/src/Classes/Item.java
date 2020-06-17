@@ -40,16 +40,25 @@ public class Item {
         this.valorAtual = valorAtual;
     }
 
-    //Funções
     public boolean possuiEmEstoque() {
+        if (this.quantidadeEstoque > 0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean possuiEmEstoqueSuficienteParaPedido(int numItens) {
+        if (this.quantidadeEstoque - numItens >= 0) {
+            return true;
+        }
         return false;
     }
 
     public void addItemPedido(ItemPedido itemPedido) {
-
+        this.itensPedidos.add(itemPedido);
     }
 
     public void removerItemPedido(ItemPedido itemPedido) {
-
+        this.itensPedidos.remove(itemPedido);
     }
 }
