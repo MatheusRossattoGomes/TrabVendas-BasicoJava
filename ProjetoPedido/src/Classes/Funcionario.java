@@ -7,7 +7,7 @@ public class Funcionario extends PessoaAbstrac {
     //Atributos da classe Funcionario
     private double Salario;
 
-    public Funcionario(double Salario, long id, String nome, String cpf, String telefone, Date daraNasc) {
+    public Funcionario(long id, String nome, String cpf, String telefone, Date daraNasc, double Salario) {
         super(id, nome, cpf, telefone, daraNasc);
         this.Salario = Salario;
     }
@@ -18,5 +18,10 @@ public class Funcionario extends PessoaAbstrac {
 
     public void setSalario(double Salario) {
         this.Salario = Salario;
+    }
+    
+    @Override
+    public String toString(){
+        return super.toString() + ", " + this.Salario;
     }
 }

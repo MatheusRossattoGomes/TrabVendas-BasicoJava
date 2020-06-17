@@ -5,12 +5,14 @@ import java.util.ArrayList;
 public class Item {
 
     //Atributos da classe Item
+    private long id;
     private String nome;
     private int quantidadeEstoque;
     private double valorAtual;
     private ArrayList<ItemPedido> itensPedidos;
 
-    public Item(String nome, int quantidadeEstoque, double valorAtual) {
+    public Item(long id ,String nome, int quantidadeEstoque, double valorAtual) {
+        this.id =id;
         this.nome = nome;
         this.quantidadeEstoque = quantidadeEstoque;
         this.valorAtual = valorAtual;
@@ -46,7 +48,7 @@ public class Item {
         }
         return false;
     }
-    
+
     public boolean possuiEmEstoqueSuficienteParaPedido(int numItens) {
         if (this.quantidadeEstoque - numItens >= 0) {
             return true;
@@ -60,5 +62,12 @@ public class Item {
 
     public void removerItemPedido(ItemPedido itemPedido) {
         this.itensPedidos.remove(itemPedido);
+    }
+
+    @Override
+    public String toString() {
+        return this.nome + ", "
+                + this.quantidadeEstoque + ", "
+                + this.valorAtual;
     }
 }

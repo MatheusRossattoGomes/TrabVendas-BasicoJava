@@ -50,12 +50,20 @@ public class Pedido {
     public void setStatusPedido(StatusPedido statusPedido) {
         this.statusPedido = statusPedido;
     }
-    
+
     public void addItemPedido(ItemPedido itemPedido) {
         this.itensPedidos.add(itemPedido);
     }
 
     public void removerItemPedido(ItemPedido itemPedido) {
         this.itensPedidos.remove(itemPedido);
+    }
+
+    @Override
+    public String toString() {
+        return this.id + ", "
+                + this.valorPedido + ", "
+                + this.dataPedido + ", "
+                + this.statusPedido.getIntStatus();
     }
 }

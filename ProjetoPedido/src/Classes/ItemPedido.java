@@ -58,4 +58,13 @@ public class ItemPedido {
     public void setIdItem(long idItem) {
         this.idItem = idItem;
     }
+
+    @Override
+    public String toString() {
+        return this.id + ", "
+                + this.valorItem + ", "
+                + this.quantidade + ", "
+                + this.idPedido + ", "
+                + this.idItem;
+    }
 }

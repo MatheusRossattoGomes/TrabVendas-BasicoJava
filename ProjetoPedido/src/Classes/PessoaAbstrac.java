@@ -68,4 +68,12 @@ public abstract class PessoaAbstrac {
         this.pedidos.remove(pedido);
     }
 
+    @Override
+    public String toString(){
+        return this.id + ", "
+                + this.nome + ", "
+                + this.cpf + ", "
+                + this.telefone + ", "
+                + this.daraNasc;
+    }
 }

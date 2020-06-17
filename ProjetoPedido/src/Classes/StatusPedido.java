@@ -13,4 +13,8 @@ public enum StatusPedido {
     StatusPedido(int valor) {
         status = valor;
     }
+    
+    public int getIntStatus() {
+        return status;
+    }
 }
