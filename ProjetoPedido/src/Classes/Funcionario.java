@@ -24,4 +24,8 @@ public class Funcionario extends PessoaAbstrac {
     public String toString(){
         return super.toString() + ", " + this.Salario;
     }
+    
+    public String toStringGrid(){
+        return super.toStringGrid() + "  |  " + this.Salario;
+    }
 }
