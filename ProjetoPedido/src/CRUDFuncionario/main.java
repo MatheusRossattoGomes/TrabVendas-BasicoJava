@@ -5,17 +5,24 @@
  */
 package CRUDFuncionario;
 
-/**
- *
- * @author rossa
- */
+import AppServices.FuncionarioAppService;
+import Classes.Funcionario;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import java.awt.List;
+
 public class main extends javax.swing.JFrame {
 
-    /**
-     * Creates new form main
-     */
-    public main() {
+    ArrayList<Funcionario> funcionario;
+    
+    public main() throws IOException {
         initComponents();
+        this.funcionario = this.GetGrid();
+        this.Grid();
     }
 
     /**
@@ -36,10 +43,25 @@ public class main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Inserir.setText("Inserir");
+        Inserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Inserir(evt);
+            }
+        });
 
         Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar(evt);
+            }
+        });
 
         Deletar.setText("Deletar");
+        Deletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Deletar(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel1.setText("Funcionário");
@@ -82,6 +104,51 @@ public class main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Inserir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inserir
+        try {
+            InserirEditar inserir = new InserirEditar();
+            inserir.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Inserir
+
+    private void Editar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar
+        try {
+            String s = this.grid.getSelectedItem();
+            Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
+            InserirEditar inserir = new InserirEditar(f);
+            inserir.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Editar
+
+    private void Deletar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Deletar
+        try {
+            String s = this.grid.getSelectedItem();
+            Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
+            FuncionarioAppService.Delete(f);
+            main main = new main();
+            main.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_Deletar
+    
+    private void Grid() {
+        for (Funcionario f : this.funcionario) {
+            this.grid.add(f.toStringGrid());
+        }
+    }
+    
+    private ArrayList<Funcionario> GetGrid() throws IOException {
+        return FuncionarioAppService.GetGrid();
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -112,7 +179,11 @@ public class main extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new main().setVisible(true);
+                try {
+                    new main().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
