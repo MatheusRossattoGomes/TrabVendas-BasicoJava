@@ -7,6 +7,7 @@ package CRUDFuncionario;
 
 import AppServices.FuncionarioAppService;
 import Classes.Funcionario;
+import ViewsCompartilhadas.SelecioneUmItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,7 +19,7 @@ import java.awt.List;
 public class main extends javax.swing.JFrame {
 
     ArrayList<Funcionario> funcionario;
-    
+
     public main() throws IOException {
         initComponents();
         this.funcionario = this.GetGrid();
@@ -34,11 +35,44 @@ public class main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        grid = new javax.swing.JScrollPane();
+        jDialog1 = new javax.swing.JDialog();
+        Ok = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         Inserir = new javax.swing.JButton();
         Editar = new javax.swing.JButton();
         Deletar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        grid = new java.awt.List();
+
+        Ok.setText("Ok");
+        Ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Ok(evt);
+            }
+        });
+
+        jLabel2.setText("Selecione um item para continuar!");
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialog1Layout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Ok, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Ok)
+                .addContainerGap())
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -73,7 +107,7 @@ public class main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grid)
+                    .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -96,8 +130,8 @@ public class main extends javax.swing.JFrame {
                     .addComponent(Inserir)
                     .addComponent(Editar)
                     .addComponent(Deletar))
-                .addGap(26, 26, 26)
-                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -117,10 +151,15 @@ public class main extends javax.swing.JFrame {
     private void Editar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar
         try {
             String s = this.grid.getSelectedItem();
-            Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
-            InserirEditar inserir = new InserirEditar(f);
-            inserir.setVisible(true);
-            this.setVisible(false);
+            if (s != null && s != "") {
+                Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
+                InserirEditar inserir = new InserirEditar(f);
+                inserir.setVisible(true);
+                this.setVisible(false);
+            } else {
+                SelecioneUmItem i = new SelecioneUmItem();
+                i.setVisible(true);
+            }
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -138,17 +177,21 @@ public class main extends javax.swing.JFrame {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Deletar
-    
+
+    private void Ok(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok
+
+    }//GEN-LAST:event_Ok
+
     private void Grid() {
         for (Funcionario f : this.funcionario) {
             this.grid.add(f.toStringGrid());
         }
     }
-    
+
     private ArrayList<Funcionario> GetGrid() throws IOException {
         return FuncionarioAppService.GetGrid();
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -192,7 +235,10 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton Deletar;
     private javax.swing.JButton Editar;
     private javax.swing.JButton Inserir;
-    private javax.swing.JScrollPane grid;
+    private javax.swing.JButton Ok;
+    private java.awt.List grid;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }

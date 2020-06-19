@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class InserirEditar extends javax.swing.JFrame {
 
     FuncionarioAppService appservice;
@@ -30,7 +29,7 @@ public class InserirEditar extends javax.swing.JFrame {
         appservice = new FuncionarioAppService();
         this.ProjectFuncionario(f);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -155,16 +154,16 @@ public class InserirEditar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ProjectFuncionario(Funcionario f) {
-        this.id = f.getId();        
+        this.id = f.getId();
         this.nome.setText(f.getNome());
         this.cpf.setText(f.getCpf());
         this.telefone.setText(f.getTelefone());
         this.dataNascimento.setText(f.getDataNasc().toString());
-        //this.salario.setText(f.getSalario().toString);
+        this.salario.setText("" + f.getSalario());
     }
-   
+
     private void Cancelar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar
-         try {
+        try {
             main main;
             main = new main();
             main.setVisible(true);
@@ -181,9 +180,9 @@ public class InserirEditar extends javax.swing.JFrame {
             String c = this.cpf.getText();
             String t = this.telefone.getText();
             LocalDate d = FuncionarioAppService.ConverteData(dataNascimento.getText());
-            //String e = endereco.getText();
+            Double s = Double.parseDouble(salario.getText());
 
-            Funcionario fl = new Funcionario(l, n, c, t, d, e);
+            Funcionario fl = new Funcionario(l, n, c, t, d, s);
 
             FuncionarioAppService.AddFuncionario(fl);
             main main = new main();

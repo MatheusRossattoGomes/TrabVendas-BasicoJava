@@ -1,9 +1,12 @@
 package Repositories;
 
+import Classes.Cliente;
 import Classes.Funcionario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +20,8 @@ public class FuncionarioRepository {
     private BufferedWriter buferedWriter;
 
     public FuncionarioRepository() throws IOException {
-        this.file = new File("FuncionarioRepository.txt");
+        new FileOutputStream("Arqs\\FuncionarioRepository.txt", true).close();
+        this.file = new File("Arqs\\FuncionarioRepository.txt");
         this.buferedReader = new BufferedReader(new FileReader(this.file));
         this.buferedWriter = new BufferedWriter(new FileWriter(this.file, true));
     }
@@ -32,12 +36,41 @@ public class FuncionarioRepository {
         }
         return result;
     }
+    
+     public void AddOne(Funcionario f) throws IOException {
+        f.setId(this.GetProxId());
+        this.buferedWriter.append(f.toString());
+        this.buferedWriter.newLine();
+    }
 
     public void SaveAll(ArrayList<Funcionario> funcionarios) throws IOException {
+        this.Clear();
         for (Funcionario f : funcionarios) {
             this.buferedWriter.write(f.toString());
             this.buferedWriter.newLine();
         }
+    }
+    
+    private void Clear() throws FileNotFoundException, IOException{
+        new FileOutputStream("Arqs\\FuncionarioRepository.txt", false).close();
+    }
+
+    public long GetProxId() throws IOException {
+        String ultimo = "";
+        String line = "";
+        while (line != null) {
+            line = buferedReader.readLine();
+            if (line != null) {
+                ultimo = line;
+            }
+        }
+        if (ultimo == "") {
+            return 0;
+        }
+        String[] ls = ultimo.split(", ");
+        long i = Long.parseLong(ls[0]);
+
+        return i + 1;
     }
 
     public Funcionario StringToFuncionario(String linha) {

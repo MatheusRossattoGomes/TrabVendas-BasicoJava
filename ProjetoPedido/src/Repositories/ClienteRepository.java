@@ -44,14 +44,14 @@ public class ClienteRepository {
     }
 
     public void SaveAll(ArrayList<Cliente> clientes) throws IOException {
-        this.Clean();
+        this.Clear();
         for (Cliente c : clientes) {
             this.buferedWriter.write(c.toString());
             this.buferedWriter.newLine();
         }
     }
     
-    private void Clean() throws FileNotFoundException, IOException{
+    private void Clear() throws FileNotFoundException, IOException{
         new FileOutputStream("Arqs\\ClienteRepository.txt", false).close();
     }
 

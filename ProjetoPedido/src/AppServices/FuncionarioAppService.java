@@ -13,9 +13,7 @@ import java.util.ArrayList;
 
 public class FuncionarioAppService extends AppService {
     
-    //private static ClienteRepository repository;
-    public FuncionarioAppService() throws IOException {
-        //this.repository = new ClienteRepository();
+    public FuncionarioAppService() {
     }
 
     public static void AddFuncionario(Funcionario f) throws IOException {
@@ -33,7 +31,7 @@ public class FuncionarioAppService extends AppService {
             }
             repository.SaveAll(funcionarios);
         } else {            
-            //repository.AddOne(f);
+            repository.AddOne(f);
         }
             repository.Close();
     }
@@ -75,7 +73,7 @@ public class FuncionarioAppService extends AppService {
         String[] ds = ls[8].split("-");
 
         LocalDate date = LocalDate.of(Integer.parseInt(ds[0]), Integer.parseInt(ds[1]), Integer.parseInt(ds[2]));
-        Funcionario f = new Funcionario(id, ls[2], ls[4], ls[6], date, ls[10]);
+        Funcionario f = new Funcionario(id, ls[2], ls[4], ls[6], date, Double.parseDouble(ls[10]));
         return f;
     }
 }

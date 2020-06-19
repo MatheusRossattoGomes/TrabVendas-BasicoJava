@@ -8,9 +8,7 @@ import java.util.ArrayList;
 
 public class ClienteAppService extends AppService {
 
-    //private static ClienteRepository repository;
     public ClienteAppService() throws IOException {
-        //this.repository = new ClienteRepository();
     }
 
     public static void AddCliente(Cliente c) throws IOException {

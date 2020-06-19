@@ -7,6 +7,7 @@ package CRUDCliente;
 
 import AppServices.ClienteAppService;
 import Classes.Cliente;
+import ViewsCompartilhadas.SelecioneUmItem;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -115,10 +116,15 @@ public class main extends javax.swing.JFrame {
     private void Editar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar
         try {
             String s = this.grid.getSelectedItem();
-            Cliente c = ClienteAppService.StringToClienteGrid(s);
-            InserirEditar inserir = new InserirEditar(c);
-            inserir.setVisible(true);
-            this.setVisible(false);
+            if (s != null && s != "") {
+                Cliente c = ClienteAppService.StringToClienteGrid(s);
+                InserirEditar inserir = new InserirEditar(c);
+                inserir.setVisible(true);
+                this.setVisible(false);
+            } else {
+                SelecioneUmItem i = new SelecioneUmItem();
+                i.setVisible(true);
+            }
         } catch (IOException ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
