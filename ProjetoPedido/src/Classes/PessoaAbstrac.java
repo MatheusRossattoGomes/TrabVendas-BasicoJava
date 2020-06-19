@@ -1,7 +1,7 @@
 package Classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public abstract class PessoaAbstrac {
 
@@ -9,15 +9,15 @@ public abstract class PessoaAbstrac {
     protected String nome;
     protected String cpf;
     protected String telefone;
-    protected Date daraNasc;
+    protected LocalDate dataNasc;
     protected ArrayList<Pedido> pedidos;
 
-    public PessoaAbstrac(long id, String nome, String cpf, String telefone, Date daraNasc) {
+    public PessoaAbstrac(long id, String nome, String cpf, String telefone, LocalDate dataNasc) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
-        this.daraNasc = daraNasc;
+        this.dataNasc = dataNasc;
     }
 
     public long getId() {
@@ -52,12 +52,12 @@ public abstract class PessoaAbstrac {
         this.telefone = telefone;
     }
 
-    public Date getDaraNasc() {
-        return daraNasc;
+    public LocalDate getDataNasc() {
+        return dataNasc;
     }
 
-    public void setDaraNasc(Date daraNasc) {
-        this.daraNasc = daraNasc;
+    public void setDataNasc(LocalDate dataNasc) {
+        this.dataNasc = dataNasc;
     }
 
     public void addPedido(Pedido pedido) {
@@ -74,6 +74,14 @@ public abstract class PessoaAbstrac {
                 + this.nome + ", "
                 + this.cpf + ", "
                 + this.telefone + ", "
-                + this.daraNasc;
+                + this.dataNasc;
+    }
+    
+    public String toStringGrid(){
+        return this.id + "  |  "
+                + this.nome + "  |  "
+                + this.cpf + "  |  "
+                + this.telefone + "  |  "
+                + this.dataNasc;
     }
 }

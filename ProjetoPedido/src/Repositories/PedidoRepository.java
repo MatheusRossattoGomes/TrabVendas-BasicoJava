@@ -2,15 +2,15 @@ package Repositories;
 
 import Classes.Pedido;
 import Classes.Pedido;
-import Classes.StatusPedido;
+import Classes.StatusPedidoEnum;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class PedidoRepository {
 
@@ -45,8 +45,11 @@ public class PedidoRepository {
     public Pedido StringToPedido(String linha) {
         String[] ls = linha.split(", ");
         long id = Long.parseLong(ls[0]);
-        Date date = new Date(ls[2]);        
-        Pedido p = new Pedido(id, Double.parseDouble(ls[1]), date, StatusPedido.valueOf(ls[3]));
+        
+        String[] ds = ls[2].split("-");
+        
+        LocalDate date = LocalDate.of(Integer.parseInt(ds[0]), Integer.parseInt(ds[1]), Integer.parseInt(ds[2]));   
+        Pedido p = new Pedido(id, Double.parseDouble(ls[1]), date, StatusPedidoEnum.fromInteger(Integer.parseInt(ls[3])));
         return p;
     }
 

@@ -1,18 +1,18 @@
 package Classes;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Pedido {
 
     //Atributos da classe Pedido;
     private long id;
     private double valorPedido;
-    private Date dataPedido;
-    private StatusPedido statusPedido;
+    private LocalDate dataPedido;
+    private StatusPedidoEnum statusPedido;
     private ArrayList<ItemPedido> itensPedidos;
 
-    public Pedido(long id, double valorPedido, Date dataPedido, StatusPedido statusPedido) {
+    public Pedido(long id, double valorPedido, LocalDate dataPedido, StatusPedidoEnum statusPedido) {
         this.id = id;
         this.valorPedido = valorPedido;
         this.dataPedido = dataPedido;
@@ -35,19 +35,19 @@ public class Pedido {
         this.valorPedido = valorPedido;
     }
 
-    public Date getDataPedido() {
+    public LocalDate getDataPedido() {
         return dataPedido;
     }
 
-    public void setDataPedido(Date dataPedido) {
+    public void setDataPedido(LocalDate dataPedido) {
         this.dataPedido = dataPedido;
     }
 
-    public StatusPedido getStatusPedido() {
+    public StatusPedidoEnum getStatusPedido() {
         return statusPedido;
     }
 
-    public void setStatusPedido(StatusPedido statusPedido) {
+    public void setStatusPedido(StatusPedidoEnum statusPedido) {
         this.statusPedido = statusPedido;
     }
 

@@ -7,8 +7,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class FuncionarioRepository {
 
@@ -43,7 +43,10 @@ public class FuncionarioRepository {
     public Funcionario StringToFuncionario(String linha) {
         String[] ls = linha.split(", ");
         long id = Long.parseLong(ls[0]);
-        Date date = new Date(ls[4]);
+        
+        String[] ds = ls[4].split("-");
+        
+        LocalDate date = LocalDate.of(Integer.parseInt(ds[0]), Integer.parseInt(ds[1]), Integer.parseInt(ds[2]));
         Funcionario c = new Funcionario(id, ls[1], ls[2], ls[3], date, Double.parseDouble(ls[5]));
         return c;
     }
