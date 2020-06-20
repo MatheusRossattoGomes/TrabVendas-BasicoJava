@@ -11,11 +11,19 @@ public class Item {
     private double valorAtual;
     private ArrayList<ItemPedido> itensPedidos;
 
-    public Item(long id ,String nome, int quantidadeEstoque, double valorAtual) {
-        this.id =id;
+    public Item(long id, String nome, int quantidadeEstoque, double valorAtual) {
+        this.id = id;
         this.nome = nome;
         this.quantidadeEstoque = quantidadeEstoque;
         this.valorAtual = valorAtual;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -66,8 +74,16 @@ public class Item {
 
     @Override
     public String toString() {
-        return this.nome + ", "
+        return this.id + ", "
+                + this.nome + ", "
                 + this.quantidadeEstoque + ", "
+                + this.valorAtual;
+    }
+
+    public String toStringGrid() {
+        return this.id + "  |  "
+                + this.nome + "  |  "
+                + this.quantidadeEstoque + "  |  "
                 + this.valorAtual;
     }
 }

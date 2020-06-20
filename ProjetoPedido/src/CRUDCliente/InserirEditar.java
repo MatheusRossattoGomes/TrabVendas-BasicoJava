@@ -169,7 +169,7 @@ public class InserirEditar extends javax.swing.JFrame {
             Cliente cl = new Cliente(l, n, c, t, d, e);
 
             ClienteAppService.AddCliente(cl);
-            main main = new main();
+            MainCliente main = new MainCliente();
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
@@ -179,8 +179,8 @@ public class InserirEditar extends javax.swing.JFrame {
 
     private void Cancelar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar
         try {
-            main main;
-            main = new main();
+            MainCliente main;
+            main = new MainCliente();
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {

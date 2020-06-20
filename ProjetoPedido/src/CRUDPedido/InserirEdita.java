@@ -9,12 +9,12 @@ package CRUDPedido;
  *
  * @author rossa
  */
-public class InserirEditar extends javax.swing.JFrame {
+public class InserirEdita extends javax.swing.JFrame {
 
     /**
      * Creates new form InserirEditar
      */
-    public InserirEditar() {
+    public InserirEdita() {
         initComponents();
     }
 

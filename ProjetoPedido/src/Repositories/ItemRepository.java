@@ -5,6 +5,8 @@ import Classes.Item;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +20,8 @@ public class ItemRepository {
     private BufferedWriter buferedWriter;
 
     public ItemRepository() throws IOException {
-        this.file = new File("ItemRepository.txt");
+        new FileOutputStream("Arqs\\ItemRepository.txt", true).close();
+        this.file = new File("Arqs\\ItemRepository.txt");
         this.buferedReader = new BufferedReader(new FileReader(this.file));
         this.buferedWriter = new BufferedWriter(new FileWriter(this.file, true));
     }
@@ -33,12 +36,41 @@ public class ItemRepository {
         }
         return result;
     }
+    
+    public void AddOne(Item i) throws IOException {
+        i.setId(this.GetProxId());
+        this.buferedWriter.append(i.toString());
+        this.buferedWriter.newLine();
+    }
 
     public void SaveAll(ArrayList<Item> itens) throws IOException {
+        this.Clear();
         for (Item i : itens) {
             this.buferedWriter.write(i.toString());
             this.buferedWriter.newLine();
         }
+    }
+    
+    private void Clear() throws FileNotFoundException, IOException{
+        new FileOutputStream("Arqs\\ItemRepository.txt", false).close();
+    }
+
+    public long GetProxId() throws IOException {
+        String ultimo = "";
+        String line = "";
+        while (line != null) {
+            line = buferedReader.readLine();
+            if (line != null) {
+                ultimo = line;
+            }
+        }
+        if (ultimo == "") {
+            return 0;
+        }
+        String[] ls = ultimo.split(", ");
+        long i = Long.parseLong(ls[0]);
+
+        return i + 1;
     }
 
     public Item StringToItem(String linha) {

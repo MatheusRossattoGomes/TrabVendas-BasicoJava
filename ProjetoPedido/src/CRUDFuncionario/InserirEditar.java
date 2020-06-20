@@ -164,8 +164,8 @@ public class InserirEditar extends javax.swing.JFrame {
 
     private void Cancelar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar
         try {
-            main main;
-            main = new main();
+            MainFuncionario main;
+            main = new MainFuncionario();
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
@@ -185,7 +185,7 @@ public class InserirEditar extends javax.swing.JFrame {
             Funcionario fl = new Funcionario(l, n, c, t, d, s);
 
             FuncionarioAppService.AddFuncionario(fl);
-            main main = new main();
+            MainFuncionario main = new MainFuncionario();
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {

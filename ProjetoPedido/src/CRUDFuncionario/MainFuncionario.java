@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package CRUDFuncionario;
 
 import AppServices.FuncionarioAppService;
 import Classes.Funcionario;
+import ViewsCompartilhadas.Menu;
 import ViewsCompartilhadas.SelecioneUmItem;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,11 +13,11 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.awt.List;
 
-public class main extends javax.swing.JFrame {
+public class MainFuncionario extends javax.swing.JFrame {
 
     ArrayList<Funcionario> funcionario;
 
-    public main() throws IOException {
+    public MainFuncionario() throws IOException {
         initComponents();
         this.funcionario = this.GetGrid();
         this.Grid();
@@ -43,6 +40,7 @@ public class main extends javax.swing.JFrame {
         Deletar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         grid = new java.awt.List();
+        X = new javax.swing.JButton();
 
         Ok.setText("Ok");
         Ok.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +98,13 @@ public class main extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel1.setText("Funcionário");
 
+        X.setText("X");
+        X.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Sair(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -109,22 +114,25 @@ public class main extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(Inserir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Editar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Deletar)))
-                        .addGap(0, 177, Short.MAX_VALUE)))
+                        .addComponent(Inserir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Editar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Deletar)
+                        .addGap(0, 177, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(X)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(X))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Inserir)
@@ -144,7 +152,7 @@ public class main extends javax.swing.JFrame {
             inserir.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Inserir
 
@@ -161,7 +169,7 @@ public class main extends javax.swing.JFrame {
                 i.setVisible(true);
             }
         } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Editar
 
@@ -170,17 +178,23 @@ public class main extends javax.swing.JFrame {
             String s = this.grid.getSelectedItem();
             Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
             FuncionarioAppService.Delete(f);
-            main main = new main();
+            MainFuncionario main = new MainFuncionario();
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Deletar
 
     private void Ok(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Ok
 
     }//GEN-LAST:event_Ok
+
+    private void Sair(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Sair
+        Menu m = new Menu();
+        m.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_Sair
 
     private void Grid() {
         for (Funcionario f : this.funcionario) {
@@ -209,23 +223,24 @@ public class main extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MainFuncionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new main().setVisible(true);
+                    new MainFuncionario().setVisible(true);
                 } catch (IOException ex) {
-                    Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(MainFuncionario.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -236,6 +251,7 @@ public class main extends javax.swing.JFrame {
     private javax.swing.JButton Editar;
     private javax.swing.JButton Inserir;
     private javax.swing.JButton Ok;
+    private javax.swing.JButton X;
     private java.awt.List grid;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
