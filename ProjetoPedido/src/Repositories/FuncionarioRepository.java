@@ -72,6 +72,22 @@ public class FuncionarioRepository {
 
         return i + 1;
     }
+    
+    public Funcionario GetOne(long id) throws IOException {
+        String ultimo = "";
+        String line = "";
+        while (line != null) {
+            line = buferedReader.readLine();
+            if (line != null) {
+                String[] ls = ultimo.split(", ");
+                long i = Long.parseLong(ls[0]);
+                if(i == id){
+                    return this.StringToFuncionario(line);
+                }
+            }
+        }
+        return null;
+    }
 
     public Funcionario StringToFuncionario(String linha) {
         String[] ls = linha.split(", ");

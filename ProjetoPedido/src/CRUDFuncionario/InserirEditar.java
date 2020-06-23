@@ -14,19 +14,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class InserirEditar extends javax.swing.JFrame {
-
-    FuncionarioAppService appservice;
     long id;
 
     public InserirEditar() throws IOException {
         initComponents();
-        appservice = new FuncionarioAppService();
         this.id = -1;
     }
 
     public InserirEditar(Funcionario f) throws IOException {
         initComponents();
-        appservice = new FuncionarioAppService();
         this.ProjectFuncionario(f);
     }
 

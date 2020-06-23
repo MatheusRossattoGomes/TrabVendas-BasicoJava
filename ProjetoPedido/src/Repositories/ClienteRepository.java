@@ -50,8 +50,8 @@ public class ClienteRepository {
             this.buferedWriter.newLine();
         }
     }
-    
-    private void Clear() throws FileNotFoundException, IOException{
+
+    private void Clear() throws FileNotFoundException, IOException {
         new FileOutputStream("Arqs\\ClienteRepository.txt", false).close();
     }
 
@@ -71,6 +71,22 @@ public class ClienteRepository {
         long i = Long.parseLong(ls[0]);
 
         return i + 1;
+    }
+
+    public Cliente GetOne(long id) throws IOException {
+        String ultimo = "";
+        String line = "";
+        while (line != null) {
+            line = buferedReader.readLine();
+            if (line != null) {
+                String[] ls = ultimo.split(", ");
+                long i = Long.parseLong(ls[0]);
+                if(i == id){
+                    return this.StringToCliente(line);
+                }
+            }
+        }
+        return null;
     }
 
     public Cliente StringToCliente(String linha) {

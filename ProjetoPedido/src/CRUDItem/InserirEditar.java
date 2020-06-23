@@ -8,18 +8,15 @@ import java.util.logging.Logger;
 
 public class InserirEditar extends javax.swing.JFrame {
 
-    ItemAppService appservice;
     long id;
 
     public InserirEditar() throws IOException {
         initComponents();
-        appservice = new ItemAppService();
         this.id = -1;
     }
 
     public InserirEditar(Item i) throws IOException {
         initComponents();
-        appservice = new ItemAppService();
         this.ProjectItem(i);
     }
 
