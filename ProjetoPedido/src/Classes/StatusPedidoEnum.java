@@ -13,12 +13,12 @@ public enum StatusPedidoEnum {
     StatusPedidoEnum(int valor) {
         status = valor;
     }
-    
+
     public int getIntStatus() {
         return status;
     }
-    
-     public static StatusPedidoEnum fromInteger(int x) {
+
+    public static StatusPedidoEnum fromInteger(int x) {
         switch (x) {
             case -1:
                 return cancelado;
@@ -33,4 +33,22 @@ public enum StatusPedidoEnum {
         }
         return null;
     }
+
+    @Override
+    public String toString() {
+        switch (status) {
+            case -1:
+                return "Cancelado";
+            case -2:
+                return "Aceito";
+            case -3:
+                return "Entregue";
+            case -4:
+                return "A caminho";
+            case -5:
+                return "Preparando";
+        }
+        return "";
+    }
 }
+

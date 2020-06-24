@@ -39,14 +39,14 @@ public class FuncionarioRepository {
     
      public void AddOne(Funcionario f) throws IOException {
         f.setId(this.GetProxId());
-        this.buferedWriter.append(f.toString());
+        this.buferedWriter.append(f.toStringBanco());
         this.buferedWriter.newLine();
     }
 
     public void SaveAll(ArrayList<Funcionario> funcionarios) throws IOException {
         this.Clear();
         for (Funcionario f : funcionarios) {
-            this.buferedWriter.write(f.toString());
+            this.buferedWriter.write(f.toStringBanco());
             this.buferedWriter.newLine();
         }
     }
@@ -74,12 +74,11 @@ public class FuncionarioRepository {
     }
     
     public Funcionario GetOne(long id) throws IOException {
-        String ultimo = "";
         String line = "";
         while (line != null) {
             line = buferedReader.readLine();
             if (line != null) {
-                String[] ls = ultimo.split(", ");
+                String[] ls = line.split(", ");
                 long i = Long.parseLong(ls[0]);
                 if(i == id){
                     return this.StringToFuncionario(line);

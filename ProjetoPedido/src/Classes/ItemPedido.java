@@ -6,15 +6,17 @@ public class ItemPedido {
     private long id;
     private double valorItem;
     private int quantidade;
+    private String nomeItem;
     private long idPedido;
     private long idItem;
     private Pedido pedido;
     private Item item;
 
-    public ItemPedido(long id, double valorItem, int quantidade, long idPedido, long idItem) {
+    public ItemPedido(long id, double valorItem, int quantidade, String nomeItem, long idPedido, long idItem) {
         this.id = id;
         this.valorItem = valorItem;
         this.quantidade = quantidade;
+        this.nomeItem = nomeItem;
         this.idPedido = idPedido;
         this.idItem = idItem;
     }
@@ -43,6 +45,14 @@ public class ItemPedido {
         this.quantidade = quantidade;
     }
 
+    public String getNomeItem() {
+        return nomeItem;
+    }
+
+    public void setNomeItem(String nomeItem) {
+        this.nomeItem = nomeItem;
+    }
+
     public long getIdPedido() {
         return idPedido;
     }
@@ -58,6 +68,8 @@ public class ItemPedido {
     public void setIdItem(long idItem) {
         this.idItem = idItem;
     }
+
+    
 
     @Override
     public String toString() {

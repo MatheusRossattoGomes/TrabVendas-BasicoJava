@@ -1,38 +1,77 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CRUDPedido;
 
+import AppServices.ClienteAppService;
+import AppServices.FuncionarioAppService;
+import AppServices.ItemPedidoAppService;
 import AppServices.PedidoAppService;
 import Classes.ItemPedido;
 import Classes.StatusPedidoEnum;
+import Classes.Cliente;
+import Classes.Funcionario;
+import Classes.Pedido;
 import ProjecaoMista.ProjecaoPedido;
+import ViewsCompartilhadas.SelecioneUmItem;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author rossa
- */
-public class InserirEdita extends javax.swing.JFrame {
+public class InserirEditarPedido extends javax.swing.JFrame {
 
     ProjecaoPedido pedido;
     ArrayList<ItemPedido> itensPedidos;
     long id;
+    Cliente cliente;
+    long idFuncionario;
+    String nomeFuncionario;
+    StatusPedidoEnum status;
 
-    public InserirEdita() {
+    public InserirEditarPedido() throws IOException {
         initComponents();
+        DataComboStatus();
+        DataComboCliente();
+        DataComboFuncionario();
         this.id = -1;
     }
 
-    public InserirEdita(ProjecaoPedido pedido) {
+    public InserirEditarPedido(ProjecaoPedido pedido) throws IOException {
         initComponents();
+        DataComboStatus();
+        DataComboCliente();
+        DataComboFuncionario();
         ProjectPedido(pedido);
+    }
+
+    public InserirEditarPedido(ArrayList<ItemPedido> itensPedidos, ProjecaoPedido pedido) throws IOException {
+        initComponents();
+        DataComboStatus();
+        DataComboCliente();
+        DataComboFuncionario();
+        this.itensPedidos = itensPedidos;
+        ProjectPedido(pedido);
+    }
+
+    public void DataComboStatus() {
+        for (StatusPedidoEnum s : StatusPedidoEnum.values()) {
+            this.comboStatus.addItem(s);
+        }
+    }
+
+    public void DataComboCliente() throws IOException {
+        ClienteAppService app = new ClienteAppService();
+        ArrayList<Cliente> clientes = app.GetAll();
+        for (Cliente c : clientes) {
+            this.comboCliente.addItem(c);
+        }
+    }
+
+    public void DataComboFuncionario() throws IOException {
+        FuncionarioAppService app = new FuncionarioAppService();
+        ArrayList<Funcionario> funcionarios = app.GetAll();
+        for (Funcionario f : funcionarios) {
+            this.comboFuncionario.addItem(f);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -52,7 +91,7 @@ public class InserirEdita extends javax.swing.JFrame {
         valor = new javax.swing.JTextField();
         Data = new javax.swing.JLabel();
         data = new javax.swing.JTextField();
-        status = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
         comboStatus = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -67,7 +106,6 @@ public class InserirEdita extends javax.swing.JFrame {
         jLabel6.setText("Cadastro de pedidos");
 
         comboCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboCliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Cliente(evt);
@@ -75,7 +113,6 @@ public class InserirEdita extends javax.swing.JFrame {
         });
 
         comboFuncionario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboFuncionario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Funcionario(evt);
@@ -114,11 +151,11 @@ public class InserirEdita extends javax.swing.JFrame {
         Data.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         Data.setText("Data do pedido:");
 
-        status.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        status.setText("Status do pedido:");
+        statusLabel.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        statusLabel.setText("Status do pedido:");
 
         comboStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboStatus.setAutoscrolls(true);
         comboStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Status(evt);
@@ -161,7 +198,7 @@ public class InserirEdita extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
-                                .addComponent(status)))
+                                .addComponent(statusLabel)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -185,7 +222,7 @@ public class InserirEdita extends javax.swing.JFrame {
                     .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(status)
+                    .addComponent(statusLabel)
                     .addComponent(comboStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(13, 13, 13)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -206,6 +243,9 @@ public class InserirEdita extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
+        comboStatus.getAccessibleContext().setAccessibleName("");
+        comboStatus.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -216,47 +256,82 @@ public class InserirEdita extends javax.swing.JFrame {
             main.setVisible(true);
             this.setVisible(false);
         } catch (IOException ex) {
-            Logger.getLogger(InserirEditar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InserirEditarPedido.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_Cancelar
 
     private void Salvar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salvar
-        // TODO add your handling code here:
+        try {
+            PedidoAppService pa = new PedidoAppService();
+            if(this.itensPedidos == null){
+                SelecioneUmItem i = new SelecioneUmItem();
+                i.setVisible(true);
+                return;
+            }
+            pa.AddPedido(this.GetPedido(), this.itensPedidos);
+            MainPedido main;
+            main = new MainPedido();
+            main.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(InserirEditarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Salvar
 
     private void AddItens(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddItens
-        // TODO add your handling code here:
+        try {
+            AddItensPedido add;
+            add = new AddItensPedido(this.GetProjecaoPedido());
+            add.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(InserirEditarPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_AddItens
 
     private void Cliente(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cliente
-        // TODO add your handling code here:
+        Cliente c = (Cliente) this.comboCliente.getSelectedItem();
+        this.cliente = c;
     }//GEN-LAST:event_Cliente
 
     private void Funcionario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Funcionario
-        // TODO add your handling code here:
+        Funcionario f = (Funcionario) this.comboFuncionario.getSelectedItem();
+        this.idFuncionario = f.getId();
+        this.nomeFuncionario = f.getNome();
     }//GEN-LAST:event_Funcionario
 
     private void Status(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Status
-        // TODO add your handling code here:
+        StatusPedidoEnum s = (StatusPedidoEnum) this.comboStatus.getSelectedItem();
+        this.status = s;
     }//GEN-LAST:event_Status
 
-    private void ProjectPedido(ProjecaoPedido p) {
+    private void ProjectPedido(ProjecaoPedido p) throws IOException {
+        this.pedido = p;
+        Cliente c = ClienteAppService.GetOne(p.idCliente); 
         this.id = p.id;
         this.valor.setText("" + p.valorPedido);
-        this.data.setText(p.dataPedido.toString());
-//        this.comboStatus.add(p.statusPedido);
-//        this.comboCliente.add(p.idCliente);
-//        this.comboStatus.add(p.idFuncionario);
+        this.data.setText(p.dataPedido == null ? "" : p.dataPedido.toString());
+        this.comboStatus.setSelectedItem(p.statusPedido);
+        this.comboCliente.setSelectedItem(c);
+        this.comboStatus.setSelectedItem(p.idFuncionario);
     }
-//==================================================================
-//    private ProjecaoPedido GetPedido(ProjecaoPedido p) {
-//        double v = Double.parseDouble(this.valor.getText());
-//        LocalDate date = PedidoAppService.ConverteData(this.data.getText());
-//        this.comboStatus.add(p.statusPedido);
-//        this.comboCliente.add(p.idCliente);
-//        this.comboStatus.add(p.idFuncionario);
-//        return new ProjecaoPedido(this.id, v, date, this.comboStatus 
-//    }
+
+    private Pedido GetPedido() {
+        double v = Double.parseDouble(this.valor.getText());
+        LocalDate date = PedidoAppService.ConverteData(this.data.getText());
+        Pedido p = new Pedido(this.id, v, date, this.status, this.cliente.getId(), this.idFuncionario);
+        return p;
+    }
+
+    private ProjecaoPedido GetProjecaoPedido() {
+        String valorS = this.valor.getText().equals("") ? "0" : this.valor.getText();
+        String dataS = this.data.getText().equals("") ? null : this.data.getText();
+
+        double v = Double.parseDouble(valorS);
+        LocalDate date = PedidoAppService.ConverteData(dataS);
+        ProjecaoPedido p = new ProjecaoPedido(this.id, v, date, this.status, this.nomeFuncionario, this.cliente.getNome(),  this.cliente.getId(), this.idFuncionario);
+        return p;
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -272,13 +347,13 @@ public class InserirEdita extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InserirEditar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirEditarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InserirEditar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirEditarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InserirEditar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirEditarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InserirEditar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(InserirEditarPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -286,7 +361,11 @@ public class InserirEdita extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InserirEditar().setVisible(true);
+                try {
+                    new InserirEditarPedido().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(InserirEditarPedido.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -297,15 +376,15 @@ public class InserirEdita extends javax.swing.JFrame {
     private javax.swing.JLabel Data;
     private javax.swing.JButton Salvar;
     private javax.swing.JLabel Valor;
-    private javax.swing.JComboBox<String> comboCliente;
-    private javax.swing.JComboBox<String> comboFuncionario;
-    private javax.swing.JComboBox<String> comboStatus;
+    private javax.swing.JComboBox<Cliente> comboCliente;
+    private javax.swing.JComboBox<Funcionario> comboFuncionario;
+    private javax.swing.JComboBox<StatusPedidoEnum> comboStatus;
     private javax.swing.JTextField data;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel status;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JTextField valor;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,6 +22,10 @@ public class Funcionario extends PessoaAbstrac {
     
     @Override
     public String toString(){
+        return this.getNome();
+    }
+    
+    public String toStringBanco(){
         return super.toString() + ", " + this.Salario;
     }
     

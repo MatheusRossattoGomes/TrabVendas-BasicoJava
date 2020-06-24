@@ -11,6 +11,11 @@ public class ClienteAppService extends AppService {
     public ClienteAppService() throws IOException {
     }
 
+    public static Cliente GetOne(long id) throws IOException{
+        ClienteRepository repository = new ClienteRepository();
+        return repository.GetOne(id);
+    }
+    
     public static void AddCliente(Cliente c) throws IOException {
         ClienteRepository repository = new ClienteRepository();
         if (c.getId() != -1) { 
@@ -58,6 +63,13 @@ public class ClienteAppService extends AppService {
     public static Cliente StringToCliente(String s) throws IOException {
         ClienteRepository repository = new ClienteRepository();
         Cliente c = repository.StringToCliente(s);
+        return c;
+    }
+    
+    public static ArrayList<Cliente> GetAll() throws IOException{        
+        ClienteRepository repository = new ClienteRepository();
+        ArrayList<Cliente> c = repository.GetAll();
+        repository.Close();
         return c;
     }
 

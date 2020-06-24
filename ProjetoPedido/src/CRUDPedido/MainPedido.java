@@ -54,7 +54,7 @@ public class MainPedido extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel1.setText("Clientes");
+        jLabel1.setText("Pedidos");
 
         X.setText("X");
         X.addActionListener(new java.awt.event.ActionListener() {
@@ -107,8 +107,13 @@ public class MainPedido extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Inserir(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Inserir
-        InserirEdita inserir = new InserirEdita();
-        inserir.setVisible(true);
+        InserirEditarPedido inserir;
+        try {
+            inserir = new InserirEditarPedido();
+            inserir.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(MainPedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
     }//GEN-LAST:event_Inserir
 

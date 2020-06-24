@@ -75,7 +75,7 @@ public class ItemPedidoRepository {
     public ItemPedido StringToItemPedido(String linha) {
         String[] ls = linha.split(", ");
         long id = Long.parseLong(ls[0]);
-        ItemPedido ip = new ItemPedido(id, Double.parseDouble(ls[1]), Integer.parseInt(ls[2]), Long.parseLong(ls[3]), Long.parseLong(ls[4]));
+        ItemPedido ip = new ItemPedido(id, Double.parseDouble(ls[1]), Integer.parseInt(ls[2]),ls[3], Long.parseLong(ls[4]), Long.parseLong(ls[5]));
         return ip;
     }
 

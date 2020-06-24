@@ -65,6 +65,13 @@ public class FuncionarioAppService extends AppService {
         Funcionario f = repository.StringToFuncionario(s);
         return f;
     }
+    
+     public static ArrayList<Funcionario> GetAll() throws IOException{        
+        FuncionarioRepository repository = new FuncionarioRepository();
+        ArrayList<Funcionario> f = repository.GetAll();
+        repository.Close();
+        return f;
+    }
 
     public static Funcionario StringToFuncionarioGrid(String linha) {
         String[] ls = linha.split("  |  ");

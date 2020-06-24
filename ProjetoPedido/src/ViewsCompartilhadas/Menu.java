@@ -1,4 +1,3 @@
-
 package ViewsCompartilhadas;
 
 import CRUDCliente.MainCliente;
@@ -14,6 +13,7 @@ public class Menu extends javax.swing.JFrame {
     public Menu() {
         initComponents();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -108,7 +108,7 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_Cliente
 
     private void Funcionario(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Funcionario
-       MainFuncionario m;
+        MainFuncionario m;
         try {
             m = new MainFuncionario();
             m.setVisible(true);
@@ -130,10 +130,14 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_Item
 
     private void Pedido(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Pedido
-        MainPedido m;
-        m = new MainPedido();
-        m.setVisible(true);
-        this.setVisible(false);
+        try {
+            MainPedido m;
+            m = new MainPedido();
+            m.setVisible(true);
+            this.setVisible(false);
+        } catch (IOException ex) {
+            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_Pedido
 
     /**

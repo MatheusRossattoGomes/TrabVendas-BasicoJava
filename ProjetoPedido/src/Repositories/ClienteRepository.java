@@ -39,14 +39,14 @@ public class ClienteRepository {
 
     public void AddOne(Cliente cliente) throws IOException {
         cliente.setId(this.GetProxId());
-        this.buferedWriter.append(cliente.toString());
+        this.buferedWriter.append(cliente.toStringBanco());
         this.buferedWriter.newLine();
     }
 
     public void SaveAll(ArrayList<Cliente> clientes) throws IOException {
         this.Clear();
         for (Cliente c : clientes) {
-            this.buferedWriter.write(c.toString());
+            this.buferedWriter.write(c.toStringBanco());
             this.buferedWriter.newLine();
         }
     }
@@ -74,12 +74,11 @@ public class ClienteRepository {
     }
 
     public Cliente GetOne(long id) throws IOException {
-        String ultimo = "";
         String line = "";
         while (line != null) {
             line = buferedReader.readLine();
             if (line != null) {
-                String[] ls = ultimo.split(", ");
+                String[] ls = line.split(", ");
                 long i = Long.parseLong(ls[0]);
                 if(i == id){
                     return this.StringToCliente(line);

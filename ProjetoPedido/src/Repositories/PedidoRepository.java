@@ -82,7 +82,7 @@ public class PedidoRepository {
         String[] ds = ls[2].split("-");
         
         LocalDate date = LocalDate.of(Integer.parseInt(ds[0]), Integer.parseInt(ds[1]), Integer.parseInt(ds[2]));
-        Pedido i = new Pedido(id, Integer.parseInt(ls[1]), date, StatusPedidoEnum.fromInteger(Integer.parseInt(ls[3])), idC, idF);
+        Pedido i = new Pedido(id, Double.parseDouble(ls[1]), date, StatusPedidoEnum.fromInteger(Integer.parseInt(ls[3])), idC, idF);
         return i;
     }
 
