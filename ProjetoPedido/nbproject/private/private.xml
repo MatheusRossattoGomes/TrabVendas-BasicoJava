@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/Repositories/FuncionarioRepository.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/Repositories/ItemPedidoRepository.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/AppServices/ItemAppService.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/Classes/ItemPedido.java</file>
             <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/CRUDPedido/MainPedido.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/CRUDPedido/AddItensPedido.java</file>
             <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/CRUDPedido/InserirEditarPedido.java</file>
-            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/AppServices/ClienteAppService.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/AppServices/ItemPedidoAppService.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/AppServices/PedidoAppService.java</file>
+            <file>file:/C:/Users/rossa/Desktop/Faculdade/TrabVendas-BasicoJava/ProjetoPedido/src/Classes/StatusPedidoEnum.java</file>
         </group>
     </open-files>
 </project-private>

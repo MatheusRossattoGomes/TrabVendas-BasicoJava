@@ -19,7 +19,7 @@ public class PedidoAppService extends AppService {
     public static void AddPedido(Pedido p, ArrayList<ItemPedido> itensPedidos) throws IOException {
         PedidoRepository repository = new PedidoRepository();
         ItemPedidoAppService ipa = new ItemPedidoAppService();
-        ArrayList<ItemPedido> itens = ipa.GetAll();
+        ArrayList<ItemPedido> itens = ItemPedidoAppService.GetAll();
 
         if (p.getId() != -1) {
             ArrayList<Pedido> pedidos = repository.GetAll();
@@ -80,6 +80,7 @@ public class PedidoAppService extends AppService {
         PedidoRepository repository = new PedidoRepository();
         Pedido remove = i;
         ArrayList<Pedido> clientes = repository.GetAll();
+        ItemPedidoAppService.DeletePeloPedido(i.getId());
         for (Pedido it : clientes) {
             if (it.getId() == i.getId()) {
                 remove = it;

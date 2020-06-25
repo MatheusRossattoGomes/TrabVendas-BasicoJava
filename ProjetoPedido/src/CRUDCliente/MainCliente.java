@@ -16,10 +16,14 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.awt.List;
+import java.lang.reflect.Array;
+import java.time.LocalDate;
+import javax.swing.table.DefaultTableModel;
 
 public class MainCliente extends javax.swing.JFrame {
 
     ArrayList<Cliente> clientes;
+    DefaultTableModel model;
 
     public MainCliente() throws IOException {
         initComponents();
@@ -35,8 +39,9 @@ public class MainCliente extends javax.swing.JFrame {
         Editar = new javax.swing.JButton();
         Deletar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        grid = new java.awt.List();
         X = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grid = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +76,17 @@ public class MainCliente extends javax.swing.JFrame {
             }
         });
 
+        grid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        grid.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(grid);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,18 +94,20 @@ public class MainCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Inserir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Editar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Deletar)
-                        .addGap(0, 177, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(X)))
+                        .addComponent(X))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -104,13 +122,10 @@ public class MainCliente extends javax.swing.JFrame {
                     .addComponent(Inserir)
                     .addComponent(Editar)
                     .addComponent(Deletar))
-                .addGap(22, 22, 22)
-                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        grid.getAccessibleContext().setAccessibleName("");
-        grid.getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -127,9 +142,9 @@ public class MainCliente extends javax.swing.JFrame {
 
     private void Editar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar
         try {
-            String s = this.grid.getSelectedItem();
-            if (s != null && s != "") {
-                Cliente c = ClienteAppService.StringToClienteGrid(s);
+            this.GetCliente();
+            Cliente c = (Cliente) this.GetCliente();
+            if (c != null) {
                 InserirEditar inserir = new InserirEditar(c);
                 inserir.setVisible(true);
                 this.setVisible(false);
@@ -144,8 +159,7 @@ public class MainCliente extends javax.swing.JFrame {
 
     private void Delete(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Delete
         try {
-            String s = this.grid.getSelectedItem();
-            Cliente c = ClienteAppService.StringToClienteGrid(s);
+            Cliente c = this.GetCliente();
             ClienteAppService.Delete(c);
             MainCliente main = new MainCliente();
             main.setVisible(true);
@@ -162,13 +176,36 @@ public class MainCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_Sair
 
     private void Grid() {
-        for (Cliente c : this.clientes) {
-            this.grid.add(c.toStringGrid());
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id");
+        model.addColumn("Nome");
+        model.addColumn("CPF");
+        model.addColumn("Telefone");
+        model.addColumn("Data de nascimento");
+        model.addColumn("Endereço");
+
+        this.model = model;
+        this.grid.setModel(model);
+        for (Cliente p : this.clientes) {
+            Object obj[] = {p.getId(), p.getNome(), p.getCpf(), p.getTelefone(), p.getDataNasc(), p.getEndereco()};
+            model.addRow(obj);
         }
     }
 
     private ArrayList<Cliente> GetGrid() throws IOException {
         return ClienteAppService.GetGrid();
+    }
+
+    private Cliente GetCliente() {
+        int i = grid.getSelectedRow();
+        long id = Long.parseLong(this.grid.getModel().getValueAt(i, 0).toString());
+        String nome = this.grid.getModel().getValueAt(i, 1).toString();
+        String cpf = this.grid.getModel().getValueAt(i, 2).toString();
+        String telefone = this.grid.getModel().getValueAt(i, 3).toString();
+        LocalDate date = ClienteAppService.ConverteData(this.grid.getModel().getValueAt(i, 4).toString());
+        String endereco = this.grid.getModel().getValueAt(i, 5).toString();
+
+        return new Cliente(id, nome, cpf, telefone, date, endereco);
     }
 
     /**
@@ -216,7 +253,8 @@ public class MainCliente extends javax.swing.JFrame {
     private javax.swing.JButton Editar;
     private javax.swing.JButton Inserir;
     private javax.swing.JButton X;
-    private java.awt.List grid;
+    private javax.swing.JTable grid;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

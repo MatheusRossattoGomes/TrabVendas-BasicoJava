@@ -262,13 +262,12 @@ public class InserirEditarPedido extends javax.swing.JFrame {
 
     private void Salvar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salvar
         try {
-            PedidoAppService pa = new PedidoAppService();
             if(this.itensPedidos == null){
                 SelecioneUmItem i = new SelecioneUmItem();
                 i.setVisible(true);
                 return;
             }
-            pa.AddPedido(this.GetPedido(), this.itensPedidos);
+            PedidoAppService.AddPedido(this.GetPedido(), this.itensPedidos);
             MainPedido main;
             main = new MainPedido();
             main.setVisible(true);

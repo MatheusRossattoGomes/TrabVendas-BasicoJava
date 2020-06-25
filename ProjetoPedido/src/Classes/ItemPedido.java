@@ -76,6 +76,7 @@ public class ItemPedido {
         return this.id + ", "
                 + this.valorItem + ", "
                 + this.quantidade + ", "
+                + this.nomeItem +", "
                 + this.idPedido + ", "
                 + this.idItem;
     }

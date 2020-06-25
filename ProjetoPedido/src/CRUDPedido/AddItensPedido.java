@@ -142,11 +142,13 @@ public class AddItensPedido extends javax.swing.JFrame {
 
     private void Salvar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Salvar
         InserirEditarPedido i;
+        
         try {
             ArrayList<ItemPedido> ips = new ArrayList<ItemPedido>();
 
-            for (Item it : this.itens) {
+            for (Item it : this.GetItens()) {
                 ItemPedido ip = new ItemPedido(this.id, it.getValorAtual(), it.getQuantidadeEstoque(), it.getNome(), this.pedido.id, it.getId());
+                ips.add(ip);
             }
 
             i = new InserirEditarPedido(ips, this.pedido);
@@ -168,15 +170,30 @@ public class AddItensPedido extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Cancelar
 
+    private ArrayList<Item> GetItens(){
+        int i[] = grid.getSelectedRows();
+        ArrayList<Item> itens = new ArrayList<Item>();
+        for(int value : i){
+          long id = Long.parseLong(this.grid.getModel().getValueAt(value, 0).toString());
+            String nome = this.grid.getModel().getValueAt(value, 1).toString();
+            int qte = Integer.parseInt(this.grid.getModel().getValueAt(value, 2).toString());
+            double v = Double.parseDouble(this.grid.getModel().getValueAt(value, 3).toString());
+            itens.add(new Item(id, nome, qte - 1, v));
+        }             
+
+        return itens;
+    }
+    
     private void Grid() {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Id");
         model.addColumn("Nome");
+        model.addColumn("Quanidade");
         model.addColumn("Valor");
 
         this.grid.setModel(model);
         for (Item p : this.itens) {
-            Object obj[] = {p.getId(), p.getNome(), p.getValorAtual()};
+            Object obj[] = {p.getId(), p.getNome(), p.getQuantidadeEstoque(), p.getValorAtual()};
             model.addRow(obj);
         }
     }

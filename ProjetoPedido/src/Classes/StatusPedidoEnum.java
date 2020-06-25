@@ -50,5 +50,21 @@ public enum StatusPedidoEnum {
         }
         return "";
     }
+    
+    public static int StringInt(String s){
+        switch (s) {
+            case "Cancelado":
+                return -1;
+            case "Aceito":
+                return -2;
+            case "Entregue":
+                return -3;
+            case "A caminho":
+                return -4;
+            case "Preparando":
+                return -5;
+        }
+        return 0;
+    }
 }
 

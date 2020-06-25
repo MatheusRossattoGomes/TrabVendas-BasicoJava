@@ -2,6 +2,7 @@ package AppServices;
 
 import Classes.ItemPedido;
 import Repositories.ItemPedidoRepository;
+import Repositories.PedidoRepository;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,6 +10,9 @@ public class ItemPedidoAppService {
 
     public static void AddItemPedido(ItemPedido c) throws IOException {
         ItemPedidoRepository repository = new ItemPedidoRepository();
+        PedidoRepository pr= new PedidoRepository();
+        if(c.getIdPedido() == -1)  c.setIdPedido(pr.GetProxId());
+        pr.Close();
         if (c.getId() != -1) {
             ArrayList<ItemPedido> clientes = repository.GetAll();
             for (ItemPedido ipv : clientes) {
@@ -27,18 +31,44 @@ public class ItemPedidoAppService {
         repository.Close();
     }
 
-    public static void Delete(ItemPedido i) throws IOException {
+    public static void DeletePeloPedido(long idPedido) throws IOException {
         ItemPedidoRepository repository = new ItemPedidoRepository();
-        ItemPedido remove = i;
-        ArrayList<ItemPedido> clientes = repository.GetAll();
-        for (ItemPedido it : clientes) {
-            if (it.getId() == i.getId()) {
-                remove = it;
+        ArrayList<ItemPedido> itens = repository.GetAll();
+        ArrayList<ItemPedido> itens2= new ArrayList<ItemPedido>();
+        for (ItemPedido it : itens) {
+            if (it.getIdPedido()== idPedido) {
+                itens2.add(it);
+            }
+        } 
+        
+        for (ItemPedido it : itens2) {
+            if (it.getIdPedido()== idPedido) {
+                itens.remove(it);
             }
         }
+        
+        repository.SaveAll(itens);
 
-        clientes.remove(remove);
-        repository.SaveAll(clientes);
+        repository.Close();
+    }
+    
+    public static void DeletePeloItem(long idItem) throws IOException {
+         ItemPedidoRepository repository = new ItemPedidoRepository();
+        ArrayList<ItemPedido> itens = repository.GetAll();
+        ArrayList<ItemPedido> itens2= new ArrayList<ItemPedido>();
+        for (ItemPedido it : itens) {
+            if (it.getIdItem()== idItem) {
+                itens2.add(it);
+            }
+        } 
+        
+        for (ItemPedido it : itens2) {
+            if (it.getIdItem()== idItem) {
+                itens.remove(it);
+            }
+        }
+        
+        repository.SaveAll(itens);
 
         repository.Close();
     }

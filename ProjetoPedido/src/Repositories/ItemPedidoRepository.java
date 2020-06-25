@@ -19,8 +19,8 @@ public class ItemPedidoRepository {
     private BufferedWriter buferedWriter;
 
     public ItemPedidoRepository() throws IOException {
-        new FileOutputStream("Arqs\\ItemPedidoPedidoRepository.txt", true).close();
-        this.file = new File("Arqs\\ItemPedidoPedidoRepository.txt");
+        new FileOutputStream("Arqs\\ItemPedidoRepository.txt", true).close();
+        this.file = new File("Arqs\\ItemPedidoRepository.txt");
         this.buferedReader = new BufferedReader(new FileReader(this.file));
         this.buferedWriter = new BufferedWriter(new FileWriter(this.file, true));
     }

@@ -1,4 +1,3 @@
-
 package CRUDFuncionario;
 
 import AppServices.FuncionarioAppService;
@@ -12,10 +11,13 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import java.awt.List;
+import java.time.LocalDate;
+import javax.swing.table.DefaultTableModel;
 
 public class MainFuncionario extends javax.swing.JFrame {
 
     ArrayList<Funcionario> funcionario;
+    DefaultTableModel model;
 
     public MainFuncionario() throws IOException {
         initComponents();
@@ -39,8 +41,9 @@ public class MainFuncionario extends javax.swing.JFrame {
         Editar = new javax.swing.JButton();
         Deletar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        grid = new java.awt.List();
         X = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grid = new javax.swing.JTable();
 
         Ok.setText("Ok");
         Ok.addActionListener(new java.awt.event.ActionListener() {
@@ -105,25 +108,36 @@ public class MainFuncionario extends javax.swing.JFrame {
             }
         });
 
+        grid.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        grid.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(grid);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(X))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(Inserir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Editar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Deletar)
-                        .addGap(0, 177, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(X)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -138,9 +152,9 @@ public class MainFuncionario extends javax.swing.JFrame {
                     .addComponent(Inserir)
                     .addComponent(Editar)
                     .addComponent(Deletar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(grid, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,9 +172,8 @@ public class MainFuncionario extends javax.swing.JFrame {
 
     private void Editar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar
         try {
-            String s = this.grid.getSelectedItem();
-            if (s != null && s != "") {
-                Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
+            Funcionario f = this.GetFucnionario();
+            if (f != null) {
                 InserirEditar inserir = new InserirEditar(f);
                 inserir.setVisible(true);
                 this.setVisible(false);
@@ -175,8 +188,7 @@ public class MainFuncionario extends javax.swing.JFrame {
 
     private void Deletar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Deletar
         try {
-            String s = this.grid.getSelectedItem();
-            Funcionario f = FuncionarioAppService.StringToFuncionarioGrid(s);
+            Funcionario f = this.GetFucnionario();
             FuncionarioAppService.Delete(f);
             MainFuncionario main = new MainFuncionario();
             main.setVisible(true);
@@ -197,13 +209,36 @@ public class MainFuncionario extends javax.swing.JFrame {
     }//GEN-LAST:event_Sair
 
     private void Grid() {
-        for (Funcionario f : this.funcionario) {
-            this.grid.add(f.toStringGrid());
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Id");
+        model.addColumn("Nome");
+        model.addColumn("CPF");
+        model.addColumn("Telefone");
+        model.addColumn("Data de nascimento");
+        model.addColumn("Salário");
+
+        this.model = model;
+        this.grid.setModel(model);
+        for (Funcionario p : this.funcionario) {
+            Object obj[] = {p.getId(), p.getNome(), p.getCpf(), p.getTelefone(), p.getDataNasc(), p.getSalario()};
+            model.addRow(obj);
         }
     }
 
     private ArrayList<Funcionario> GetGrid() throws IOException {
         return FuncionarioAppService.GetGrid();
+    }
+
+    private Funcionario GetFucnionario() {
+        int i = grid.getSelectedRow();
+        long id = Long.parseLong(this.grid.getModel().getValueAt(i, 0).toString());
+        String nome = this.grid.getModel().getValueAt(i, 1).toString();
+        String cpf = this.grid.getModel().getValueAt(i, 2).toString();
+        String telefone = this.grid.getModel().getValueAt(i, 3).toString();
+        LocalDate date = FuncionarioAppService.ConverteData(this.grid.getModel().getValueAt(i, 4).toString());
+        double salario = Double.parseDouble(this.grid.getModel().getValueAt(i, 5).toString());
+
+        return new Funcionario(id, nome, cpf, telefone, date, salario);
     }
 
     /**
@@ -252,9 +287,10 @@ public class MainFuncionario extends javax.swing.JFrame {
     private javax.swing.JButton Inserir;
     private javax.swing.JButton Ok;
     private javax.swing.JButton X;
-    private java.awt.List grid;
+    private javax.swing.JTable grid;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

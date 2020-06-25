@@ -28,6 +28,7 @@ public class ItemAppService {
     public static void Delete(Item i) throws IOException {
         ItemRepository repository = new ItemRepository();
         Item remove = i;
+        ItemPedidoAppService.DeletePeloItem(i.getId());
         ArrayList<Item> itens = repository.GetAll();
         for (Item it : itens) {
             if (it.getId() == i.getId()) {
